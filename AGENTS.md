@@ -1,4 +1,4 @@
-# feishu-proj
+# feishu-proj-cli
 
 飞书项目 Python CLI & SDK，供 skill 和脚本调用。
 

@@ -1,7 +1,7 @@
 [project]
-name = "feishu-proj"
+name = "feishu-proj-cli"
 version = "0.1.0"
-description = "飞书项目 Python SDK - 非 MCP 方式封装"
+description = "飞书项目 Python CLI & SDK - 封装飞书项目 OpenAPI"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
