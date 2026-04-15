@@ -545,7 +545,7 @@ for i in range(0, len(id_list), 20):
     resp = client.query_work_item_detail(PROJECT_KEY, "story", id_list[i:i+20])
     details.extend(resp.get("data", []))
 
-# Step 3：提取角色负责人
+# Step 3：提取角色负责人（角色标识因项目而异，先通过 meta 或详情查询了解有哪些 role）
 def get_role_owners(item, role_key):
     for f in item.get("fields", []):
         if f.get("field_key") == "role_owners":
@@ -555,10 +555,10 @@ def get_role_owners(item, role_key):
     return []
 
 for d in details:
-    pm_keys  = get_role_owners(d, "PM")
-    qa_keys  = get_role_owners(d, "role_qa_leader")
-    dev_keys = (get_role_owners(d, "role_dev_client_leader")
-              + get_role_owners(d, "role_dev_act_leader"))
+    # 示例：替换为实际的角色标识
+    # pm_keys  = get_role_owners(d, "PM")
+    # dev_keys = get_role_owners(d, "role_dev")
+    pass
 
     # Step 4：从 state_times 读取各阶段起止时间
     state_map = {s["state_key"]: (s["start_time"], s["end_time"])

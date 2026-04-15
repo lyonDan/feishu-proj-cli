@@ -211,17 +211,9 @@ test_start = state_map.get("test",    (0, 0))[0]   # 进入测试阶段的时间
 
 ### role_owners — 角色负责人
 
-`fields` 中 `field_key="role_owners"` 的 `field_value` 是角色数组，每项 `{"role": "PM", "owners": ["<USER_KEY>"]}`。
+`fields` 中 `field_key="role_owners"` 的 `field_value` 是角色数组，每项 `{"role": "<角色标识>", "owners": ["<USER_KEY>"]}`。
 
-| role 值 | 含义 |
-|---------|------|
-| `PM` | 产品负责人 |
-| `role_qa_leader` | QA 负责人 |
-| `role_dev_client_leader` | 客户端开发 Leader |
-| `role_dev_act_leader` | 活动开发 Leader |
-| `role_dev_master` | 研发负责人 |
-| `role_qa_teamleader` | QA 组长 |
-| `role_attention` | 关注者 |
+角色标识因项目而异，可通过 `work-items meta` 或实际查询 story 详情来了解本项目有哪些角色。
 
 ```python
 def get_role_owners(item, role_key):
@@ -231,10 +223,6 @@ def get_role_owners(item, role_key):
                 if ro.get("role") == role_key:
                     return [str(x) for x in (ro.get("owners") or [])]
     return []
-
-pm_keys  = get_role_owners(item, "PM")
-qa_keys  = get_role_owners(item, "role_qa_leader")
-dev_keys = get_role_owners(item, "role_dev_client_leader") + get_role_owners(item, "role_dev_act_leader")
 ```
 
 ### 批量查询用法
