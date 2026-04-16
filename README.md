@@ -1,8 +1,23 @@
 # feishu-proj-cli
 
-飞书项目 Python SDK & CLI，供 skill 和脚本调用。
+> 🔧 飞书项目 (Feishu Project) Python CLI & SDK — 封装 OpenAPI，支持工作项管理、状态流转、批量操作
 
-本项目参考飞书官方 MCP 文档实现，基于 [飞书官方 OpenAPI 文档](https://project.feishu.cn/helpcenter/1ykiuvvj/19wmvt8b) 开发。
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+
+## 简介
+
+**feishu-proj-cli** 是一个飞书项目的命令行工具和 Python SDK，完整封装飞书项目 OpenAPI，提供：
+
+- 📋 **工作项管理** — 需求 (story)、缺陷 (bug)、版本 (version)、任务 (task) 的增删改查
+- 🔄 **状态流转** — 自动查询 transition_id，支持 `--status` 一键流转
+- 🔍 **字段探索** — `meta` 命令查看可用字段、类型约束和必填项
+- 🧪 **安全操作** — 所有写操作支持 `--dry-run` 预览，防止误操作
+- 🐍 **双重接口** — CLI 适合交互使用，Python SDK 适合脚本批量处理
+- ⚡ **现代技术栈** — httpx + pydantic + click，Python 3.10+，ruff + mypy 严格检查
+
+本项目基于 [飞书官方 OpenAPI 文档](https://project.feishu.cn/helpcenter/1ykiuvvj/19wmvt8b) 开发，参考了多个飞书项目 MCP 实现。
 
 ## ⚠️ 首要原则：CLI 优先
 
