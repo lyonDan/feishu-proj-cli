@@ -1,15 +1,15 @@
 """需求 API"""
 
-from typing import Optional
+
 from feishu_proj.client import FeishuProjClient
 
 
 def get_requirements(
     project_key: str,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
     page_size: int = 50,
     page_num: int = 1,
-    status: Optional[str] = None,
+    status: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.get_requirements(
@@ -23,7 +23,7 @@ def get_requirements(
 def get_requirement_detail(
     project_key: str,
     requirement_id: str,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.get_requirement_detail(

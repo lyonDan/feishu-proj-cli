@@ -13,7 +13,6 @@
 """
 
 import json
-from typing import Optional
 
 import click
 
@@ -80,7 +79,7 @@ def requirements():
 @click.option("--page-num", default=1, help="分页页码")
 @click.option("--status", default=None, help="状态筛选")
 @click.option("--format", type=click.Choice(["json", "table"]), default="json", help="输出格式")
-def requirements_list(project_key: str, page_size: int, page_num: int, status: Optional[str], format: str):
+def requirements_list(project_key: str, page_size: int, page_num: int, status: str | None, format: str):
     """获取需求列表"""
     try:
         data = get_requirements(
@@ -138,7 +137,7 @@ def bugs_list(project_key, page_size, page_num, status, owner, keyword, format):
         # Default to open statuses if not specified
         if not status:
             status = "OPEN,RESOLVED"
-        
+
         data = get_bugs(
             project_key=project_key,
             page_size=page_size,
@@ -191,8 +190,8 @@ def bugs_get(project_key: str, bug_id: str, format: str):
 def bugs_create(
     project_key: str,
     name: str,
-    fields_json: Optional[str],
-    template_id: Optional[int],
+    fields_json: str | None,
+    template_id: int | None,
     dry_run: bool,
 ):
     """创建缺陷"""
@@ -238,7 +237,7 @@ def bugs_create(
 )
 @click.option("--dry-run", is_flag=True, default=False, help="仅预览请求参数，不实际更新")
 def bugs_update(
-    project_key: str, bug_id: int, fields_json: Optional[str], status: Optional[str], dry_run: bool
+    project_key: str, bug_id: int, fields_json: str | None, status: str | None, dry_run: bool
 ):
     """更新缺陷字段或流转状态
 
@@ -393,7 +392,7 @@ def versions():
 @click.option("--page-num", default=1, help="分页页码")
 @click.option("--keyword", default=None, help="关键字搜索")
 @click.option("--format", type=click.Choice(["json", "table"]), default="json", help="输出格式")
-def versions_list(project_key: str, page_size: int, page_num: int, keyword: Optional[str], format: str):
+def versions_list(project_key: str, page_size: int, page_num: int, keyword: str | None, format: str):
     """获取版本列表"""
     try:
         data = get_versions(
@@ -445,8 +444,8 @@ def versions_get(project_key: str, version_id: str, format: str):
 def versions_create(
     project_key: str,
     name: str,
-    fields_json: Optional[str],
-    template_id: Optional[int],
+    fields_json: str | None,
+    template_id: int | None,
     dry_run: bool,
 ):
     """创建版本"""
@@ -598,8 +597,8 @@ def stories_get(project_key: str, story_id: str, format: str):
 def stories_create(
     project_key: str,
     name: str,
-    fields_json: Optional[str],
-    template_id: Optional[int],
+    fields_json: str | None,
+    template_id: int | None,
     dry_run: bool,
 ):
     """创建需求"""
@@ -708,7 +707,7 @@ def auth_get_user_key(auth_code: str):
         from feishu_proj.client import FeishuProjClient
         client = FeishuProjClient()
         result = client.get_user_key_by_code(auth_code)
-        
+
         if result.get("error", {}).get("code") == 0:
             data = result.get("data", {})
             click.echo(f"user_key: {data.get('user_key')}")

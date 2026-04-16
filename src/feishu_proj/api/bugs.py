@@ -1,17 +1,17 @@
 """缺陷 API"""
 
-from typing import Optional
+
 from feishu_proj.client import FeishuProjClient
 
 
 def get_bugs(
     project_key: str,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
     page_size: int = 50,
     page_num: int = 1,
-    status: Optional[str] = None,
-    owner: Optional[str] = None,
-    keyword: Optional[str] = None,
+    status: str | None = None,
+    owner: str | None = None,
+    keyword: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.get_bugs(
@@ -27,7 +27,7 @@ def get_bugs(
 def get_bug_detail(
     project_key: str,
     bug_id: str,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.query_work_item_detail(
@@ -40,9 +40,9 @@ def get_bug_detail(
 def create_bug(
     project_key: str,
     name: str,
-    user_key: Optional[str] = None,
-    field_value_pairs: Optional[list] = None,
-    template_id: Optional[int] = None,
+    user_key: str | None = None,
+    field_value_pairs: list | None = None,
+    template_id: int | None = None,
 ) -> dict:
     """创建缺陷"""
     client = FeishuProjClient(user_key=user_key)
@@ -59,7 +59,7 @@ def update_bug(
     project_key: str,
     bug_id: int,
     update_fields: list,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     """更新缺陷"""
     client = FeishuProjClient(user_key=user_key)

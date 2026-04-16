@@ -1,11 +1,11 @@
 """项目 API"""
 
-from typing import Optional
+
 from feishu_proj.client import FeishuProjClient
 
 
 def get_projects(
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
     page_size: int = 50,
     page_token: str = "",
 ) -> dict:

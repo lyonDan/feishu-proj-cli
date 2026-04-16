@@ -1,6 +1,5 @@
 """工作项读写 API"""
 
-from typing import Optional
 
 from feishu_proj.client import FeishuProjClient
 
@@ -9,9 +8,9 @@ def create_work_item(
     project_key: str,
     work_item_type_key: str,
     name: str,
-    user_key: Optional[str] = None,
-    field_value_pairs: Optional[list] = None,
-    template_id: Optional[int] = None,
+    user_key: str | None = None,
+    field_value_pairs: list | None = None,
+    template_id: int | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.create_work_item(
@@ -28,7 +27,7 @@ def update_work_item(
     work_item_type_key: str,
     work_item_id: int,
     update_fields: list,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.update_work_item(
@@ -42,7 +41,7 @@ def update_work_item(
 def get_work_item_meta(
     project_key: str,
     work_item_type_key: str,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.get_work_item_meta(
@@ -55,7 +54,7 @@ def delete_work_item(
     project_key: str,
     work_item_type_key: str,
     work_item_id: int,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.delete_work_item(

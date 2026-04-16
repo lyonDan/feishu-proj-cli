@@ -2,12 +2,11 @@
 
 import os
 import time
-from typing import Optional
 
 import httpx
 from dotenv import load_dotenv
 
-from feishu_proj.config import PLUGIN_ID, PLUGIN_SECRET, API_URL
+from feishu_proj.config import API_URL, PLUGIN_ID, PLUGIN_SECRET
 
 load_dotenv()
 
@@ -15,7 +14,7 @@ load_dotenv()
 class FeishuProjClient:
     def __init__(
         self,
-        user_key: Optional[str] = None,
+        user_key: str | None = None,
     ):
         self.plugin_id = PLUGIN_ID
         self.plugin_secret = PLUGIN_SECRET
@@ -27,7 +26,7 @@ class FeishuProjClient:
                 "user_key 必须提供，或设置环境变量 FEISHU_USER_KEY"
             )
 
-        self._token: Optional[str] = None
+        self._token: str | None = None
         self._token_expire: int = 0
 
     def _ensure_token(self) -> str:
@@ -56,8 +55,8 @@ class FeishuProjClient:
         self,
         method: str,
         endpoint: str,
-        params: Optional[dict] = None,
-        json_data: Optional[dict] = None,
+        params: dict | None = None,
+        json_data: dict | None = None,
     ) -> dict:
         token = self._ensure_token()
         headers = {
@@ -105,7 +104,7 @@ class FeishuProjClient:
         project_key: str,
         page_size: int = 50,
         page_num: int = 1,
-        status: Optional[str] = None,
+        status: str | None = None,
     ) -> dict:
         json_data = {
             "project_key": project_key,
@@ -133,9 +132,9 @@ class FeishuProjClient:
         project_key: str,
         page_size: int = 50,
         page_num: int = 1,
-        status: Optional[str] = None,
-        owner: Optional[str] = None,
-        keyword: Optional[str] = None,
+        status: str | None = None,
+        owner: str | None = None,
+        keyword: str | None = None,
     ) -> dict:
         json_data = {
             "project_key": project_key,
@@ -251,7 +250,7 @@ class FeishuProjClient:
         project_key: str,
         page_size: int = 20,
         page_num: int = 1,
-        keyword: Optional[str] = None,
+        keyword: str | None = None,
     ) -> dict:
         json_data = {
             "project_key": project_key,
@@ -277,10 +276,10 @@ class FeishuProjClient:
         project_key: str,
         page_size: int = 50,
         page_num: int = 1,
-        status: Optional[str] = None,
-        planning_version: Optional[str] = None,
-        owner: Optional[str] = None,
-        keyword: Optional[str] = None,
+        status: str | None = None,
+        planning_version: str | None = None,
+        owner: str | None = None,
+        keyword: str | None = None,
     ) -> dict:
         json_data = {
             "project_key": project_key,
@@ -321,13 +320,13 @@ class FeishuProjClient:
         self,
         project_key: str,
         work_item_type_keys: list,
-        keyword: Optional[str] = None,
+        keyword: str | None = None,
         page_size: int = 20,
         page_num: int = 1,
-        planning_version: Optional[str] = None,
-        status: Optional[str] = None,
-        owner: Optional[str] = None,
-        work_item_ids: Optional[list] = None,
+        planning_version: str | None = None,
+        status: str | None = None,
+        owner: str | None = None,
+        work_item_ids: list | None = None,
     ) -> dict:
         json_data = {
             "project_key": project_key,
@@ -346,7 +345,7 @@ class FeishuProjClient:
         result = self._request("POST", f"/{project_key}/work_item/filter", json_data=json_data)
 
         items = result.get("data", [])
-        
+
         # 客户端过滤: planning_version
         if planning_version:
             vid = planning_version
@@ -374,8 +373,8 @@ class FeishuProjClient:
         project_key: str,
         work_item_type_key: str,
         name: str,
-        field_value_pairs: Optional[list] = None,
-        template_id: Optional[int] = None,
+        field_value_pairs: list | None = None,
+        template_id: int | None = None,
     ) -> dict:
         """创建工作项
 
@@ -463,7 +462,7 @@ class FeishuProjClient:
         project_key: str,
         work_item_type_key: str,
         work_item_ids: list,
-        fields: Optional[list] = None,
+        fields: list | None = None,
     ) -> dict:
         """查询工作项详情（使用 query 接口，支持批量）
 
@@ -519,7 +518,7 @@ class FeishuProjClient:
         work_item_type_key: str,
         work_item_id: int,
         transition_id: int,
-        fields: Optional[list] = None,
+        fields: list | None = None,
     ) -> dict:
         """执行工作项状态流转
 

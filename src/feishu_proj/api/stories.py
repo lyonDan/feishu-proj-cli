@@ -1,17 +1,17 @@
 """需求/故事 API"""
-from typing import Optional
+
 from feishu_proj.client import FeishuProjClient
 
 
 def get_stories(
     project_key: str,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
     page_size: int = 50,
     page_num: int = 1,
-    status: Optional[str] = None,
-    planning_version: Optional[str] = None,
-    owner: Optional[str] = None,
-    keyword: Optional[str] = None,
+    status: str | None = None,
+    planning_version: str | None = None,
+    owner: str | None = None,
+    keyword: str | None = None,
 ) -> dict:
     client = FeishuProjClient(user_key=user_key)
     return client.get_stories(
@@ -28,7 +28,7 @@ def get_stories(
 def get_story_detail(
     project_key: str,
     story_id: str,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     """获取需求详情"""
     client = FeishuProjClient(user_key=user_key)
@@ -42,9 +42,9 @@ def get_story_detail(
 def create_story(
     project_key: str,
     name: str,
-    user_key: Optional[str] = None,
-    field_value_pairs: Optional[list] = None,
-    template_id: Optional[int] = None,
+    user_key: str | None = None,
+    field_value_pairs: list | None = None,
+    template_id: int | None = None,
 ) -> dict:
     """创建需求"""
     client = FeishuProjClient(user_key=user_key)
@@ -61,7 +61,7 @@ def update_story(
     project_key: str,
     story_id: int,
     update_fields: list,
-    user_key: Optional[str] = None,
+    user_key: str | None = None,
 ) -> dict:
     """更新需求"""
     client = FeishuProjClient(user_key=user_key)
